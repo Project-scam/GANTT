@@ -21,15 +21,21 @@ export default defineConfig({
         icons: [
           {
             src: '/vite.svg',
+            sizes: 'any',
+            type: 'image/svg+xml',
+            purpose: 'any'
+          },
+          {
+            src: '/vite.svg',
             sizes: '192x192',
             type: 'image/svg+xml',
-            purpose: 'any maskable'
+            purpose: 'maskable'
           },
           {
             src: '/vite.svg',
             sizes: '512x512',
             type: 'image/svg+xml',
-            purpose: 'any maskable'
+            purpose: 'maskable'
           }
         ]
       },
