@@ -5,14 +5,14 @@ import "gantt-task-react/dist/index.css";
  * Componente Gantt usando gantt-task-react
  * Più potente e nativo React rispetto a Frappe Gantt
  */
-export const GanttTaskReact = ({ 
-  tasks = [], 
+export const GanttTaskReact = ({
+  tasks = [],
   viewMode = ViewMode.QuarterDay,
   onTaskClick,
   onTaskChange,
-  onProgressChange 
+  onProgressChange
 }) => {
-  
+
   // Converti viewMode string in ViewMode enum se necessario
   const getViewMode = (mode) => {
     const modes = {
@@ -47,9 +47,9 @@ export const GanttTaskReact = ({
   // Se non ci sono task, mostra messaggio
   if (!tasks || tasks.length === 0) {
     return (
-      <div style={{ 
-        padding: '40px', 
-        textAlign: 'center', 
+      <div style={{
+        padding: '40px',
+        textAlign: 'center',
         color: '#666',
         fontSize: '16px'
       }}>
@@ -59,7 +59,7 @@ export const GanttTaskReact = ({
   }
 
   return (
-    <div style={{ width: '100%', overflow: 'auto' }}>
+    <div style={{ width: '100%', overflow: 'auto', color: '#1e293b' }}>
       <Gantt
         tasks={tasks}
         viewMode={typeof viewMode === 'string' ? getViewMode(viewMode) : viewMode}
@@ -67,17 +67,18 @@ export const GanttTaskReact = ({
         onProgressChange={handleProgressChange}
         onClick={handleTaskClick}
         locale="it"
-        listCellWidth="155px"
-        columnWidth={60}
+        listCellWidth="100px"
+        columnWidth={35}
         barBackgroundColor="#3b82f6"
         barBackgroundSelectedColor="#1e40af"
         barProgressColor="#60a5fa"
         barProgressSelectedColor="#3b82f6"
         arrowColor="#94a3b8"
         arrowIndent={20}
-        fontSize="14px"
+        barFill={65}
+        fontSize="10px"
         fontFamily="Arial, sans-serif"
-        rowHeight={50}
+        rowHeight={28}
         headerHeight={50}
         todayColor="rgba(239, 68, 68, 0.2)"
       />

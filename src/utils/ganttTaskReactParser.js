@@ -4,13 +4,20 @@
 
 /**
  * Converte durata in ore
- * @param {string} duration - Durata nel formato "4h", "1.5h", etc.
+ * @param {string} duration - Durata nel formato "4h", "1.5h", "h4", etc.
  * @returns {number} - Numero di ore
  */
 export const parseDuration = (duration) => {
     if (!duration || duration.trim() === '') return 8;
 
-    const match = duration.match(/(\d+\.?\d*)\s*h/i);
+    // "4h", "1.5h", "4 h"
+    let match = duration.match(/(\d+\.?\d*)\s*h/i);
+    if (match) {
+        const hours = parseFloat(match[1]);
+        return hours > 0 ? hours : 8;
+    }
+    // "h4"
+    match = duration.match(/h\s*(\d+\.?\d*)/i);
     if (match) {
         const hours = parseFloat(match[1]);
         return hours > 0 ? hours : 8;
@@ -20,16 +27,17 @@ export const parseDuration = (duration) => {
 };
 
 /**
- * Calcola la data di fine basata su data inizio e durata in ore
- * @param {Date} startDate - Data inizio
+ * Calcola la data di fine per il Gantt (granularità a giorni).
+ * Usa giorni interi così le colonne From/To differiscono e le barre sono visibili.
+ * 8h = 1 giorno, 9h = 2 giorni, etc. Minimo 1 giorno.
+ * @param {Date} startDate - Data inizio (mezzanotte)
  * @param {number} durationHours - Durata in ore
- * @returns {Date} - Data fine
+ * @returns {Date} - Data fine (mezzanotte del giorno successivo)
  */
 export const calculateEndDate = (startDate, durationHours) => {
     const end = new Date(startDate);
-    // Converti ore in millisecondi
-    const milliseconds = durationHours * 60 * 60 * 1000;
-    end.setTime(end.getTime() + milliseconds);
+    const days = Math.max(1, Math.ceil(durationHours / 8));
+    end.setDate(end.getDate() + days);
     return end;
 };
 
@@ -143,22 +151,23 @@ export const parseCSVToGanttTaskReact = (csvContent) => {
                 console.warn(`Invalid date format for task "${taskName}": "${startDateStr}". Using default date.`);
                 startDateStr = '2024-01-01';
             }
-            startDate = new Date(startDateStr + 'T08:00:00');
+            startDate = new Date(startDateStr + 'T00:00:00');
 
             // Verifica che la data sia valida
             if (isNaN(startDate.getTime())) {
                 console.warn(`Invalid date for task "${taskName}": "${startDateStr}". Using default date.`);
-                startDate = new Date('2024-01-01T08:00:00');
+                startDate = new Date('2024-01-01T00:00:00');
             }
         } catch (error) {
             console.error(`Error parsing date for task "${taskName}":`, error);
-            startDate = new Date('2024-01-01T08:00:00');
+            startDate = new Date('2024-01-01T00:00:00');
         }
 
-        const endDate = calculateEndDate(startDate, durationHours);
+        let endDate = calculateEndDate(startDate, durationHours);
         const progress = estimateProgress(startDate);
         const taskType = getTaskType(durationHours);
         const colors = getTaskColors(resources);
+        if (taskType === 'milestone') endDate = new Date(startDate);
 
         // Formato richiesto da gantt-task-react
         return {

@@ -67,7 +67,7 @@ CALL Google Meet con il team (riunione),2026-01-03,1.5h,Sandu/Mattia/Catalin/And
 export const ProjectGanttTaskReact = () => {
   const [allTasks, setAllTasks] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
-  const [viewMode, setViewMode] = useState(ViewMode.QuarterDay);
+  const [viewMode, setViewMode] = useState(ViewMode.Day);
   const [selectedResource, setSelectedResource] = useState("");
   const [stats, setStats] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
