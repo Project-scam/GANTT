@@ -48,6 +48,22 @@ export default defineConfig({
             type: 'image/svg+xml',
             purpose: 'maskable'
           }
+        ],
+        screenshots: [
+          {
+            src: iconDataUrl,
+            sizes: '256x257',
+            type: 'image/svg+xml',
+            form_factor: 'wide',
+            label: 'Gantt Produzione (desktop)'
+          },
+          {
+            src: iconDataUrl,
+            sizes: '256x257',
+            type: 'image/svg+xml',
+            form_factor: 'narrow',
+            label: 'Gantt Produzione (mobile)'
+          }
         ]
       },
       workbox: {
