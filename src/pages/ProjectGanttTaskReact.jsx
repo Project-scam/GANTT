@@ -4,65 +4,68 @@ import { GanttTaskReact } from "../components/GanttTaskReact";
 import {
   parseCSVToGanttTaskReact,
   calculateTaskStats,
-  filterTasksByResource
+  filterTasksByResource,
+  formatDateWithAbbreviatedMonth
 } from "../utils/ganttTaskReactParser";
 
 
 // Dati CSV importati direttamente
 const CSV_DATA = `Task Name,Start Date,Duration,Resources
-CALL Google Meet con il team (riunione),2025-11-28,2.5h,Sandu/Mattia/Catalin/Andrea
-CALL Google Meet con il team (riunione),2025-12-11,2h,Sandu/Mattia/Catalin/Andrea
-CALL Google Meet con il team (riunione),2025-12-13,2h,Sandu/Mattia/Catalin/Andrea
-creazione schema analisi SWOT,2025-12-15,4h,Sandu
-creazione WBS,2025-12-15,3h,Andrea
-creazione Mokup,2025-12-15,8h,Catalin
-creazione Schema GANTT,2025-12-15,8h,Andrea
-CALL Google Meet con il team (riunione),2025-12-15,1.5h,Sandu/Mattia/Catalin/Andrea
-configurazione repository fronend in GitHub,2025-12-15,3h,Sandu/Mattia/Catalin/Andrea
-installazione progetto React/Vite,2025-12-16,1h,Sandu/Mattia/Catalin/Andrea
-configurazione cloud Vercel per deploy frontend con React/Vite,2025-12-17,2h,Sandu/Mattia/Catalin/Andrea
-creazione EndScreen.jsx: schermata di fine partita.,2025-12-17,2h,Catalin
-creazione VersusSetup.jsx: configurazione in modalità 1 VS 1,2025-12-18,2h,Catalin
-creazione ColorPicker.jsx: selettore colori per sequenza segreta,2025-12-19,0.5h,Catalin
-creazione GuessRow: riga di tentativo singolo,2025-12-20,2h,Catalin
-creazione GameBoard.jsx: area di gioco principale,2025-12-21,2h,Catalin
-CALL Google Meet con il team (riunione),2025-12-28,1.5h,Sandu/Mattia/Catalin/Andrea
-creazione BombHeader.jsx: componente di intestazione del gioco,2025-12-28,1h,Catalin
-implementazione dell'inglese come lingua base dell'app, 2025-12-28,3h,Catalin
-creazione MainMenu.jsx: interfaccia per la scelta modalità di gioco,2025-12-29,3h,Sandu
-creazione modale tuotorial del gioco,2025-12-29,4h,Catalin
-creazione classifica, 2025-12-29,5h,Andrea
-CALL Google Meet con il team (riunione),2025-12-30,1.5h,Sandu/Mattia/Catalin/Andrea
-creazione schermata sfida giocatore,2025-12-30,1.5h,Andrea
-CALL Google Meet con il team (riunione),2026-01-01,1h,Sandu/Mattia/Catalin/Andrea
-creazione list utenti loggati (da sfidare online),2026-01-02,3h,Andrea
-finestra di login,2026-01-02,2h,Sandu
-finestra di registrazione,2026-01-02,2h,Catalin
-implementazione responsive mobile,2026-01-05,3h,Andrea
-inserimento pulsante Login/Logout,2026-01-08,3h,Catalin
-Inserimento validazione username=email,2026-01-10,2h,Andrea
-Gestione recupero password,2026-01-12,h4,Andrea
-configurazione repository backend in GitHub,2025-12-16,3h,Sandu/Mattia/Catalin/Andrea
-configurazione cloud Neon per deploy  database PostgreSQL,2025-12-16,1.5h,Catalin/Andrea
-configurazione cloud Render.com per deploy backend in Node.js/Express.js,2025-12-16,2h,Sandu/Mattia/Catalin/Andrea
-installazione progetto Node.js/Express.js,2025-12-17,1h,Catalin/Andrea/Sandu/Mattia
-creazione Token JWT con cookie HttpOnly e autorizzazione accesso a modalità 1 VS 1,2025-12-18,6h,Andrea
-creazione controller Socket.io per lancio della sfida in modalità 1 VS 1,2025-12-19,3h,Andrea
-creazione API elenco utenti loggati (online),2025-12-19,3h,Andrea
-creazione API di registrazione,2025-12-20,2h,Andrea
-creazione API di Login,2025-12-20,2h,Andrea
-registrazione: controllo se l'utente è loggato,2025-12-20,2h,Catalin
-registrazione: codificare utente password,2025-12-20,1h,Andrea
-registrazione: implementazione del ruolo utente,2025-12-20,1h,Catalin
-creazione connessione a database,2025-12-21,1h,Andrea
-creazione server Express per sviluppo,2025-12-21,1h,Andrea
-creazione tabella utenti in Neon,2025-12-21,1h,Catalin/Andrea
-CALL Google Meet con il team (riunione),2025-12-22,1.5h,Sandu/Mattia/Catalin/Andrea
-registrazione: username univoco,2025-12-22,1h,Catalin
-creazione API classifica utenti,2025-12-22,3h,Andrea
-creazione controller Socket.io con relativo modulo,2025-12-23,5h,Sandu
-CALL Google Meet con il team ,2025-12-24,1.5h,Sandu/Mattia/Catalin/Andrea
-CALL Google Meet con il team (riunione),2026-01-03,1.5h,Sandu/Mattia/Catalin/Andrea`;
+BACKEND,2025-11-28,2026-01-03,
+CALL Google Meet con il team (riunione),2025-11-28,2025-11-28,2.5h,Sandu/Mattia/Catalin/Andrea
+CALL Google Meet con il team (riunione),2025-12-11,2025-12-11,2h,Sandu/Mattia/Catalin/Andrea
+CALL Google Meet con il team (riunione),2025-12-13,2025-12-13,2h,Sandu/Mattia/Catalin/Andrea
+creazione schema analisi SWOT,2025-12-15,2025-12-15,4h,Sandu
+creazione WBS,2025-12-15,2025-12-15,3h,Andrea
+creazione Mokup,2025-12-15,2025-12-15,8h,Catalin
+creazione Schema GANTT,2025-12-15,2025-12-15,8h,Andrea
+CALL Google Meet con il team (riunione),2025-12-15,2025-12-15,1.5h,Sandu/Mattia/Catalin/Andrea
+configurazione repository fronend in GitHub,2025-12-15,2025-12-15,3h,Sandu/Mattia/Catalin/Andrea
+installazione progetto React/Vite,2025-12-16,2025-12-16,1h,Sandu/Mattia/Catalin/Andrea
+configurazione cloud Vercel per deploy frontend con React/Vite,2025-12-17,2025-12-17,2h,Sandu/Mattia/Catalin/Andrea
+creazione EndScreen.jsx: schermata di fine partita.,2025-12-17,2025-12-17,2h,Catalin
+creazione VersusSetup.jsx: configurazione in modalità 1 VS 1,2025-12-18,2025-12-18,2h,Catalin
+creazione ColorPicker.jsx: selettore colori per sequenza segreta,2025-12-19,2025-12-19,0.5h,Catalin
+creazione GuessRow: riga di tentativo singolo,2025-12-20,2025-12-20,2h,Catalin
+creazione GameBoard.jsx: area di gioco principale,2025-12-21,2025-12-21,2h,Catalin
+CALL Google Meet con il team (riunione),2025-12-28,2025-12-28,1.5h,Sandu/Mattia/Catalin/Andrea
+creazione BombHeader.jsx: componente di intestazione del gioco,2025-12-28,2025-12-28,1h,Catalin
+implementazione dell'inglese come lingua base dell'app, 2025-12-28,2025-12-28,3h,Catalin
+creazione MainMenu.jsx: interfaccia per la scelta modalità di gioco,2025-12-29,2025-12-29,3h,Sandu
+creazione modale tuotorial del gioco,2025-12-29,2025-12-29,4h,Catalin
+creazione classifica, 2025-12-29,2025-12-29,5h,Andrea
+CALL Google Meet con il team (riunione),2025-12-30,2025-12-30,1.5h,Sandu/Mattia/Catalin/Andrea
+creazione schermata sfida giocatore,2025-12-30,2025-12-30,1.5h,Andrea
+CALL Google Meet con il team (riunione),2026-01-01,2026-01-01,1h,Sandu/Mattia/Catalin/Andrea
+creazione list utenti loggati (da sfidare online),2026-01-02,2026-01-02,3h,Andrea
+finestra di login,2026-01-02,2026-01-02,2h,Sandu
+finestra di registrazione,2026-01-02,2026-01-02,2h,Catalin
+implementazione responsive mobile,2026-01-05,2026-01-05,3h,Andrea
+inserimento pulsante Login/Logout,2026-01-08,2026-01-08,3h,Catalin
+Inserimento validazione username=email,2026-01-10,2026-01-10,2h,Andrea
+Gestione recupero password,2026-01-12,2026-01-12,2026-01-12,h4,Andrea
+FRONTEND,2025-12-16,2026-01-12
+configurazione repository backend in GitHub,2025-12-16,2025-12-16,3h,Sandu/Mattia/Catalin/Andrea
+configurazione cloud Neon per deploy  database PostgreSQL,2025-12-16,2025-12-16,1.5h,Catalin/Andrea
+configurazione cloud Render.com per deploy backend in Node.js/Express.js,2025-12-16,2025-12-16,2h,Sandu/Mattia/Catalin/Andrea
+installazione progetto Node.js/Express.js,2025-12-17,2025-12-17,1h,Catalin/Andrea/Sandu/Mattia
+creazione Token JWT con cookie HttpOnly e autorizzazione accesso a modalità 1 VS 1,2025-12-18,2025-12-18,6h,Andrea
+creazione controller Socket.io per lancio della sfida in modalità 1 VS 1,2025-12-19,2025-12-19,3h,Andrea
+creazione API elenco utenti loggati (online),2025-12-19,2025-12-19,3h,Andrea
+creazione API di registrazione,2025-12-20,2025-12-20,2h,Andrea
+creazione API di Login,2025-12-20,2025-12-20,2h,Andrea
+registrazione: controllo se l'utente è loggato,2025-12-20,2025-12-20,2h,Catalin
+registrazione: codificare utente password,2025-12-20,2025-12-20,1h,Andrea
+registrazione: implementazione del ruolo utente,2025-12-20,2025-12-20,1h,Catalin
+creazione connessione a database,2025-12-21,2025-12-21,1h,Andrea
+creazione server Express per sviluppo,2025-12-21,2025-12-21,1h,Andrea
+creazione tabella utenti in Neon,2025-12-21,2025-12-21,1h,Catalin/Andrea
+CALL Google Meet con il team (riunione),2025-12-22,2025-12-22,1.5h,Sandu/Mattia/Catalin/Andrea
+registrazione: username univoco,2025-12-22,2025-12-22,1h,Catalin
+creazione API classifica utenti,2025-12-22,2025-12-22,3h,Andrea
+creazione controller Socket.io con relativo modulo,2025-12-23,2025-12-23,5h,Sandu
+CALL Google Meet con il team (riunione),2025-12-24,2025-12-24,1.5h,Sandu/Mattia/Catalin/Andrea
+CALL Google Meet con il team (riunione),2026-01-03,2026-01-03,1.5h,Sandu/Mattia/Catalin/Andrea`;
 
 export const ProjectGanttTaskReact = () => {
   const [allTasks, setAllTasks] = useState([]);
@@ -109,6 +112,11 @@ export const ProjectGanttTaskReact = () => {
     { label: "Month", value: ViewMode.Month }
   ];
 
+  // Task da mostrare nel pannello (dallo stato, con date e campi formattati)
+  const displayTask = selectedTask
+    ? (filteredTasks.find((t) => t.id === selectedTask.id) ?? selectedTask)
+    : null;
+
   if (!stats) {
     return (
       <div style={{
@@ -132,98 +140,98 @@ export const ProjectGanttTaskReact = () => {
     }}>
       {/* Header */}
       <div style={{
-        maxWidth: "1600px",
+        maxWidth: "1920px",
         margin: "0 auto",
-        marginBottom: "30px"
+        marginBottom: "5px"
       }}>
         <h1 style={{
           color: "white",
-          fontSize: "2.5rem",
-          marginBottom: "10px",
+          fontSize: "1.2rem",
+          marginBottom: "5px",
           fontFamily: "Orbitron, sans-serif"
         }}>
           📊 Mastermind Project Timeline
         </h1>
-        <p style={{ color: "#94a3b8", fontSize: "1.1rem" }}>
+        {/*<p style={{ color: "#94a3b8", fontSize: "0.9rem" }}>
           Powered by gantt-task-react
-        </p>
+        </p>*/}
       </div>
 
       {/* Stats Cards */}
       <div style={{
-        maxWidth: "1600px",
+        maxWidth: "1920px",
         margin: "0 auto",
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-        gap: "15px",
-        marginBottom: "30px"
+        gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+        gap: "10px",
+        marginBottom: "8px"
       }}>
         <div style={{
           backgroundColor: "#1e293b",
-          padding: "20px",
-          borderRadius: "8px",
+          padding: "6px 10px",
+          borderRadius: "6px",
           border: "1px solid #334155"
         }}>
-          <div style={{ color: "#94a3b8", fontSize: "0.9rem", marginBottom: "5px" }}>
+          <div style={{ color: "#94a3b8", fontSize: "0.75rem", marginBottom: "1px" }}>
             Totale Task
           </div>
-          <div style={{ color: "white", fontSize: "2rem", fontWeight: "bold" }}>
+          <div style={{ color: "white", fontSize: "1.1rem", fontWeight: "bold" }}>
             {stats.total}
           </div>
         </div>
 
         <div style={{
           backgroundColor: "#1e293b",
-          padding: "20px",
-          borderRadius: "8px",
+          padding: "6px 10px",
+          borderRadius: "6px",
           border: "1px solid #06b6d4"
         }}>
-          <div style={{ color: "#94a3b8", fontSize: "0.9rem", marginBottom: "5px" }}>
+          <div style={{ color: "#94a3b8", fontSize: "0.75rem", marginBottom: "1px" }}>
             Ore Totali
           </div>
-          <div style={{ color: "#06b6d4", fontSize: "2rem", fontWeight: "bold" }}>
+          <div style={{ color: "#06b6d4", fontSize: "1.1rem", fontWeight: "bold" }}>
             {stats.totalHours}h
           </div>
         </div>
 
         <div style={{
           backgroundColor: "#1e293b",
-          padding: "20px",
-          borderRadius: "8px",
+          padding: "6px 10px",
+          borderRadius: "6px",
           border: "1px solid #10b981"
         }}>
-          <div style={{ color: "#94a3b8", fontSize: "0.9rem", marginBottom: "5px" }}>
+          <div style={{ color: "#94a3b8", fontSize: "0.75rem", marginBottom: "1px" }}>
             Ore Completate
           </div>
-          <div style={{ color: "#10b981", fontSize: "2rem", fontWeight: "bold" }}>
+          <div style={{ color: "#10b981", fontSize: "1.1rem", fontWeight: "bold" }}>
             {stats.completedHours}h
           </div>
         </div>
 
         <div style={{
           backgroundColor: "#1e293b",
-          padding: "20px",
-          borderRadius: "8px",
+          padding: "6px 10px",
+          borderRadius: "6px",
           border: "1px solid #f59e0b"
         }}>
-          <div style={{ color: "#94a3b8", fontSize: "0.9rem", marginBottom: "5px" }}>
+          <div style={{ color: "#94a3b8", fontSize: "0.75rem", marginBottom: "1px" }}>
             Progresso
           </div>
-          <div style={{ color: "#f59e0b", fontSize: "2rem", fontWeight: "bold" }}>
+          <div style={{ color: "#f59e0b", fontSize: "1.1rem", fontWeight: "bold" }}>
             {stats.avgProgress}%
           </div>
         </div>
 
         <div style={{
           backgroundColor: "#1e293b",
-          padding: "20px",
-          borderRadius: "8px",
+          padding: "6px 10px",
+          borderRadius: "6px",
           border: "1px solid #ec4899"
         }}>
-          <div style={{ color: "#94a3b8", fontSize: "0.9rem", marginBottom: "5px" }}>
+          <div style={{ color: "#94a3b8", fontSize: "0.75rem", marginBottom: "1px" }}>
             Team Members
           </div>
-          <div style={{ color: "#ec4899", fontSize: "2rem", fontWeight: "bold" }}>
+          <div style={{ color: "#ec4899", fontSize: "1.1rem", fontWeight: "bold" }}>
             {stats.resourceCount}
           </div>
         </div>
@@ -231,13 +239,13 @@ export const ProjectGanttTaskReact = () => {
 
       {/* Controls */}
       <div style={{
-        maxWidth: "1600px",
+        maxWidth: "1920px",
         margin: "0 auto",
-        marginBottom: "20px"
+        marginBottom: "5px"
       }}>
         <div style={{
           backgroundColor: "#1e293b",
-          padding: "20px",
+          padding: "5px",
           borderRadius: "8px",
           border: "1px solid #334155"
         }}>
@@ -264,7 +272,7 @@ export const ProjectGanttTaskReact = () => {
                     border: "none",
                     borderRadius: "6px",
                     cursor: "pointer",
-                    fontSize: "14px",
+                    fontSize: "12px",
                     fontWeight: viewMode === mode.value ? "bold" : "normal"
                   }}
                 >
@@ -333,7 +341,7 @@ export const ProjectGanttTaskReact = () => {
 
       {/* Gantt Chart */}
       <div style={{
-        maxWidth: "1600px",
+        maxWidth: "1920px",
         margin: "0 auto",
         marginBottom: "30px",
         backgroundColor: "white",
@@ -348,8 +356,8 @@ export const ProjectGanttTaskReact = () => {
         />
       </div>
 
-      {/* Task Details */}
-      {selectedTask && (
+      {/* Task Details - date con mese abbreviato (es. 15 Dic 2025) */}
+      {displayTask && (
         <div style={{
           maxWidth: "1600px",
           margin: "0 auto",
@@ -365,7 +373,7 @@ export const ProjectGanttTaskReact = () => {
             marginBottom: "15px"
           }}>
             <h3 style={{ color: "white", margin: 0 }}>
-              📋 {selectedTask._originalName || selectedTask.name}
+              📋 {displayTask._originalName || displayTask.name}
             </h3>
             <button
               onClick={() => setSelectedTask(null)}
@@ -390,28 +398,28 @@ export const ProjectGanttTaskReact = () => {
           }}>
             <div>
               <strong style={{ color: "white" }}>Data Inizio:</strong>{" "}
-              {selectedTask.start.toLocaleDateString('it-IT')}
+              {formatDateWithAbbreviatedMonth(displayTask.start)}
             </div>
             <div>
               <strong style={{ color: "white" }}>Data Fine:</strong>{" "}
-              {selectedTask.end.toLocaleDateString('it-IT')}
+              {displayTask.endFormatted ?? formatDateWithAbbreviatedMonth(displayTask.end)}
             </div>
             <div>
-              <strong style={{ color: "white" }}>Durata:</strong> {selectedTask._duration}
+              <strong style={{ color: "white" }}>Durata:</strong> {displayTask._duration}
             </div>
             <div>
               <strong style={{ color: "white" }}>Progresso:</strong>{" "}
               <span style={{
-                color: selectedTask.progress === 100 ? "#10b981" :
-                  selectedTask.progress > 50 ? "#3b82f6" : "#f59e0b"
+                color: displayTask.progress === 100 ? "#10b981" :
+                  displayTask.progress > 50 ? "#3b82f6" : "#f59e0b"
               }}>
-                {selectedTask.progress}%
+                {displayTask.progress}%
               </span>
             </div>
-            {selectedTask._resources && (
+            {displayTask._resources && (
               <div style={{ gridColumn: "1 / -1" }}>
                 <strong style={{ color: "white" }}>Risorse Assegnate:</strong>{" "}
-                {selectedTask._resources.split('/').map((resource, i) => (
+                {displayTask._resources.split('/').map((resource, i) => (
                   <span
                     key={i}
                     style={{

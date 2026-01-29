@@ -1,5 +1,7 @@
 import { Gantt, ViewMode } from "gantt-task-react";
 import "gantt-task-react/dist/index.css";
+import { TaskListTableAbbrevDates } from "./TaskListTableAbbrevDates";
+import { TaskListHeaderWideName } from "./TaskListHeaderWideName";
 
 /**
  * Componente Gantt usando gantt-task-react
@@ -10,7 +12,8 @@ export const GanttTaskReact = ({
   viewMode = ViewMode.QuarterDay,
   onTaskClick,
   onTaskChange,
-  onProgressChange
+  onProgressChange,
+  TaskListTable = TaskListTableAbbrevDates
 }) => {
 
   // Converti viewMode string in ViewMode enum se necessario
@@ -68,7 +71,7 @@ export const GanttTaskReact = ({
         onClick={handleTaskClick}
         locale="it"
         listCellWidth="100px"
-        columnWidth={35}
+        columnWidth={37}
         barBackgroundColor="#3b82f6"
         barBackgroundSelectedColor="#1e40af"
         barProgressColor="#60a5fa"
@@ -76,11 +79,13 @@ export const GanttTaskReact = ({
         arrowColor="#94a3b8"
         arrowIndent={20}
         barFill={65}
-        fontSize="10px"
+        fontSize="11px"
         fontFamily="Arial, sans-serif"
-        rowHeight={28}
-        headerHeight={50}
+        rowHeight={25}
+        headerHeight={30}
         todayColor="rgba(239, 68, 68, 0.2)"
+        TaskListTable={TaskListTable}
+        TaskListHeader={TaskListHeaderWideName}
       />
     </div>
   );

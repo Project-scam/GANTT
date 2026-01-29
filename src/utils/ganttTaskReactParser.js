@@ -26,18 +26,48 @@ export const parseDuration = (duration) => {
     return 8;
 };
 
+/** Mesi in italiano abbreviati (3 lettere) */
+const MESI_ABBR_IT = ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'];
+
+/**
+ * Formatta una data con il mese abbreviato a 3 lettere (es. 15 Dic 2025)
+ * @param {Date} date - Data da formattare
+ * @returns {string} - Stringa formattata (es. "15 Dic 2025")
+ */
+export const formatDateWithAbbreviatedMonth = (date) => {
+    if (date == null) return '–';
+    const d = new Date(date);
+    if (isNaN(d.getTime())) return '–';
+    const day = d.getDate();
+    const month = MESI_ABBR_IT[d.getMonth()];
+    const year = d.getFullYear();
+    return `${day} ${month} ${year}`;
+};
+
+/**
+ * Porta una data a mezzanotte (00:00:00.000) in ora locale.
+ * Serve per allineare le barre del Gantt alle colonne giorno/settimana/mese.
+ */
+const toMidnightLocal = (date) => {
+    const d = new Date(date);
+    d.setHours(0, 0, 0, 0);
+    return d;
+};
+
 /**
  * Calcola la data di fine per il Gantt (granularità a giorni).
- * Usa giorni interi così le colonne From/To differiscono e le barre sono visibili.
+ * La barra grafica va da start (incluso) a end (escluso): rispetta quindi le date From/To.
  * 8h = 1 giorno, 9h = 2 giorni, etc. Minimo 1 giorno.
  * @param {Date} startDate - Data inizio (mezzanotte)
  * @param {number} durationHours - Durata in ore
- * @returns {Date} - Data fine (mezzanotte del giorno successivo)
+ * @returns {Date} - Data fine (mezzanotte del giorno successivo all'ultimo giorno di lavoro)
  */
 export const calculateEndDate = (startDate, durationHours) => {
-    const end = new Date(startDate);
+    const start = toMidnightLocal(startDate);
+    const end = new Date(start);
     const days = Math.max(1, Math.ceil(durationHours / 8));
     end.setDate(end.getDate() + days);
+    end.setHours(0, 0, 0, 0);
     return end;
 };
 
@@ -109,10 +139,14 @@ export const estimateProgress = (startDate) => {
     return Math.min(70 + Math.floor(((daysSinceStart - 7) / 23) * 30), 100);
 };
 
+const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
+const isDateString = (s) => s && DATE_REGEX.test(String(s).trim());
+
 /**
- * Parse del file CSV e conversione in task per gantt-task-react
- * @param {string} csvContent - Contenuto del file CSV
- * @returns {Array} - Array di task per gantt-task-react
+ * Parse del file CSV e conversione in task per gantt-task-react.
+ * Supporta due formati:
+ * - Con data di fine: Nome, Data inizio, Data fine [, Durata] [, Risorse]  → la barra va da inizio a fine
+ * - Solo durata: Nome, Data inizio, Durata, Risorse  → la barra va da inizio a inizio+durata
  */
 export const parseCSVToGanttTaskReact = (csvContent) => {
     const lines = csvContent.trim().split('\n');
@@ -121,59 +155,100 @@ export const parseCSVToGanttTaskReact = (csvContent) => {
     const tasks = dataLines.map((line, index) => {
         const columns = line.split(',').map(col => col.trim());
 
-        // Se ci sono più di 4 colonne, significa che il nome del task contiene virgole
-        // Prendiamo le ultime 3 colonne come: data, durata, risorse
-        // E tutto il resto come nome del task
-        let taskName, startDateStr, duration, resources;
+        let taskName, startDateStr, endDateStr, duration, resources;
 
-        if (columns.length >= 4) {
-            // Le ultime 3 colonne sono sempre: data, durata, risorse
-            resources = columns[columns.length - 1] || '';
-            duration = columns[columns.length - 2] || '8h';
-            startDateStr = columns[columns.length - 3] || '2024-01-01';
-            // Tutto il resto è il nome del task
-            taskName = columns.slice(0, columns.length - 3).join(', ').trim() || `Task ${index + 1}`;
-        } else {
-            // Formato standard: nome, data, durata, risorse
+        if (columns.length === 3) {
+            // Nome, Data inizio, Data fine (es. FRONTEND,2025-12-16,2026-01-12)
             taskName = columns[0] || `Task ${index + 1}`;
             startDateStr = columns[1] || '2024-01-01';
+            endDateStr = columns[2];
+            duration = '';
+            resources = '';
+        } else if (columns.length >= 4) {
+            resources = columns[columns.length - 1] || '';
+            const secondLast = columns[columns.length - 2];
+            if (isDateString(secondLast)) {
+                // Nome, Data inizio, Data fine, Risorse (es. BACKEND,2025-11-28,2026-01-03,)
+                endDateStr = secondLast;
+                startDateStr = columns[columns.length - 3] || '2024-01-01';
+                taskName = columns.slice(0, columns.length - 3).join(', ').trim() || `Task ${index + 1}`;
+                duration = '';
+            } else {
+                // Nome, Data inizio, Data fine, Durata, Risorse (es. CALL...,2025-11-28,2025-11-28,2.5h,Sandu/...)
+                duration = secondLast || '8h';
+                endDateStr = columns[columns.length - 3];
+                startDateStr = columns[columns.length - 4] || '2024-01-01';
+                taskName = columns.slice(0, columns.length - 4).join(', ').trim() || `Task ${index + 1}`;
+            }
+        } else {
+            taskName = columns[0] || `Task ${index + 1}`;
+            startDateStr = columns[1] || '2024-01-01';
+            endDateStr = null;
             duration = columns[2] || '8h';
             resources = columns[3] || '';
         }
 
-        const durationHours = parseDuration(duration);
-
-        // Valida e crea la data
+        // Valida e crea data inizio (sempre mezzanotte locale)
         let startDate;
         try {
-            // Verifica che startDateStr sia nel formato corretto (YYYY-MM-DD)
-            if (!startDateStr || !/^\d{4}-\d{2}-\d{2}$/.test(startDateStr)) {
-                console.warn(`Invalid date format for task "${taskName}": "${startDateStr}". Using default date.`);
+            if (!startDateStr || !isDateString(startDateStr)) {
                 startDateStr = '2024-01-01';
             }
             startDate = new Date(startDateStr + 'T00:00:00');
-
-            // Verifica che la data sia valida
+            startDate.setHours(0, 0, 0, 0);
             if (isNaN(startDate.getTime())) {
-                console.warn(`Invalid date for task "${taskName}": "${startDateStr}". Using default date.`);
                 startDate = new Date('2024-01-01T00:00:00');
+                startDate.setHours(0, 0, 0, 0);
             }
-        } catch (error) {
-            console.error(`Error parsing date for task "${taskName}":`, error);
+        } catch (e) {
             startDate = new Date('2024-01-01T00:00:00');
+            startDate.setHours(0, 0, 0, 0);
         }
 
-        let endDate = calculateEndDate(startDate, durationHours);
+        // Data fine: da CSV se presente e valida, altrimenti da durata
+        let endDate;
+        let endFormattedStr = null; // se da CSV, mostriamo la data "ultimo giorno" (prima di +1)
+        if (isDateString(endDateStr)) {
+            try {
+                endDate = new Date(endDateStr + 'T00:00:00');
+                endDate.setHours(0, 0, 0, 0);
+                if (isNaN(endDate.getTime()) || endDate.getTime() < startDate.getTime()) {
+                    endDate = calculateEndDate(startDate, parseDuration(duration || '8h'));
+                } else {
+                    endFormattedStr = formatDateWithAbbreviatedMonth(endDate); // "3 Gen 2026" prima di +1
+                    // "Fino al 2026-01-03" = ultimo giorno incluso: la barra copre tutto il giorno → fine al giorno dopo
+                    endDate.setDate(endDate.getDate() + 1);
+                }
+            } catch (e) {
+                endDate = calculateEndDate(startDate, parseDuration(duration || '8h'));
+            }
+        } else {
+            const durationHours = parseDuration(duration || '8h');
+            endDate = calculateEndDate(startDate, durationHours);
+        }
+
+        // Stesso giorno: la barra deve coprire almeno un giorno (fine = inizio + 1 giorno)
+        if (endDate.getTime() <= startDate.getTime()) {
+            if (endFormattedStr == null) endFormattedStr = formatDateWithAbbreviatedMonth(startDate); // mostra stesso giorno
+            endDate = new Date(startDate.getTime());
+            endDate.setDate(endDate.getDate() + 1);
+            endDate.setHours(0, 0, 0, 0);
+        }
+
+        const durationHours = duration ? parseDuration(duration) : Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) * 8;
         const progress = estimateProgress(startDate);
         const taskType = getTaskType(durationHours);
         const colors = getTaskColors(resources);
-        if (taskType === 'milestone') endDate = new Date(startDate);
+        if (taskType === 'milestone') endDate = new Date(startDate.getTime());
 
-        // Formato richiesto da gantt-task-react
+        const displayDuration = duration || (durationHours >= 8 ? `${Math.round(durationHours / 8)}g` : `${durationHours}h`);
+
         return {
-            start: startDate,
-            end: endDate,
-            name: `${taskName} (${duration})`,
+            start: new Date(startDate.getTime()),
+            end: new Date(endDate.getTime()),
+            startFormatted: formatDateWithAbbreviatedMonth(startDate),
+            endFormatted: endFormattedStr != null ? endFormattedStr : formatDateWithAbbreviatedMonth(endDate),
+            name: `${taskName} (${displayDuration})`,
             id: `task_${index + 1}`,
             type: taskType,
             progress: progress,
@@ -184,9 +259,8 @@ export const parseCSVToGanttTaskReact = (csvContent) => {
                 progressColor: colors.progressColor,
                 progressSelectedColor: colors.selectedColor
             },
-            // Dati extra per riferimento
             _resources: resources,
-            _duration: duration,
+            _duration: displayDuration,
             _durationHours: durationHours,
             _originalName: taskName
         };
