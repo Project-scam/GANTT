@@ -1,14 +1,6 @@
 import { defineConfig } from 'vite'
-import fs from 'node:fs'
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const viteSvgPath = path.join(__dirname, 'public', 'vite.svg')
-const iconDataUrl = 'data:image/svg+xml;base64,' +
-  Buffer.from(fs.readFileSync(viteSvgPath, 'utf-8')).toString('base64')
 
 export default defineConfig({
   base: '/',
@@ -31,38 +23,22 @@ export default defineConfig({
         orientation: 'any',
         icons: [
           {
-            src: iconDataUrl,
+            src: '/vite.svg',
             sizes: 'any',
             type: 'image/svg+xml',
             purpose: 'any'
           },
           {
-            src: iconDataUrl,
+            src: '/vite.svg',
             sizes: '192x192',
             type: 'image/svg+xml',
             purpose: 'maskable'
           },
           {
-            src: iconDataUrl,
+            src: '/vite.svg',
             sizes: '512x512',
             type: 'image/svg+xml',
             purpose: 'maskable'
-          }
-        ],
-        screenshots: [
-          {
-            src: iconDataUrl,
-            sizes: '256x257',
-            type: 'image/svg+xml',
-            form_factor: 'wide',
-            label: 'Gantt Produzione (desktop)'
-          },
-          {
-            src: iconDataUrl,
-            sizes: '256x257',
-            type: 'image/svg+xml',
-            form_factor: 'narrow',
-            label: 'Gantt Produzione (mobile)'
           }
         ]
       },
