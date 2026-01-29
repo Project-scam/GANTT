@@ -11,6 +11,7 @@ export default defineConfig({
       injectRegister: null,
       includeAssets: ['vite.svg'],
       manifest: {
+        id: '/',
         name: 'Gantt Produzione',
         short_name: 'Gantt',
         description: 'Gestione magazzino ricambi',
