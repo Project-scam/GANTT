@@ -19,16 +19,18 @@ Creazione schema analisi SWOT,2025-12-15,2025-12-15,4h,Sandu
 Creazione WBS,2025-12-15,2025-12-15,3h,Andrea
 Creazione Schema GANTT,2025-12-15,2025-12-15,8h,Andrea
 Coordinamento con il team,2025-11-28,2026-01-30
-CALL Google Meet con il team (riunione),2025-12-11,2025-12-11,2h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2025-12-28,2025-12-28,1.5h,Sandu/Mattia/Catalin/Andrea
-CALL Google Meet con il team (riunione),2025-12-17,2025-12-17,2h,Sandu/Mattia/Catalin/Andrea
+CALL Google Meet con il team (riunione),2025-12-11,2025-12-11,2h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2025-12-13,2025-12-13,2h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2025-12-15,2025-12-15,1.5h,Sandu/Mattia/Catalin/Andrea
+CALL Google Meet con il team (riunione),2025-12-17,2025-12-17,2h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2025-12-22,2025-12-22,1.5h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2025-12-30,2025-12-30,1.5h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2025-12-24,2025-12-24,1.5h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2026-01-01,2026-01-01,1h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2026-01-03,2026-01-03,1.5h,Sandu/Mattia/Catalin/Andrea
+CAll Google Meet con il team (riunione),2026-02-01,2026-02-01,1.5h,Sandu/Mattia/Catalin/Andrea
+CAll Google Meet con il team (riunione),2026-02-03,2026-02-03,1.5h,Sandu/Mattia/Catalin/Andrea
 Aggiornamenti Schema GANTT,2026-01-24,2026-01-30,6h,Andrea
 Design e UX/UI,2025-12-11,2026-01-05
 Creazione Mockup,2025-12-15,2026-01-15,10h,Catalin

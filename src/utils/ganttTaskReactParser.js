@@ -321,8 +321,7 @@ export const filterTasksByResource = (tasks, resource) => {
 };
 
 /**
- * Nomi dei task primari (type: project, senza parent).
- * I task con questi nomi diventano progetti; tutti gli altri hanno project = id del progetto corrente.
+ * Nomi dei task primari (Livello 1 - type: project).
  */
 const PRIMARY_TASK_NAMES = [
     'Project Management',
@@ -330,29 +329,74 @@ const PRIMARY_TASK_NAMES = [
     'FrontEnd',
     'BACKEND',
     'Testing e Validazione',
-    'Rilascio'
+    'Rilascio software'
 ];
 
 /**
- * Applica la gerarchia ai task: task primari type='project', gli altri project=id del parent.
+ * Nomi dei task secondari (Livello 2) con il parent primario a cui appartengono.
+ * Chiave: nome del task secondario, Valore: nome del task primario parent.
+ */
+const SECONDARY_TASKS = {
+    // Figli di Project Management
+    'Pianificazione requisiti': 'Project Management',
+    'Coordinamento con il team': 'Project Management',
+    // Figli di FrontEnd
+    'Setup': null, // Gestito in base al contesto (FrontEnd o BACKEND)
+    'Implementazione funzionalità Utente': 'FrontEnd',
+    // Figli di BACKEND
+    'Database': 'BACKEND',
+    'API REST + Socket.io': 'BACKEND',
+    'Sicurezza': 'BACKEND'
+};
+
+/**
+ * Applica la gerarchia a 3 livelli ai task.
+ * - Livello 1: Task primari (type: project)
+ * - Livello 2: Task secondari (type: project, project: id del primario)
+ * - Livello 3: Tutti gli altri (type: task, project: id del secondario corrente)
  * @param {Array} tasks - Task restituiti da parseCSVToGanttTaskReact
  * @returns {Array} - Stessi task con type e project impostati
  */
 export const applyTaskHierarchy = (tasks) => {
-    let currentProjectId = null;
+    // Prima passata: costruiamo una mappa nome -> id per i primari
+    const primaryIdMap = {};
+    tasks.forEach(task => {
+        const name = (task._originalName || '').trim();
+        if (PRIMARY_TASK_NAMES.includes(name)) {
+            primaryIdMap[name] = task.id;
+        }
+    });
+
+    let currentPrimaryId = null;
+    let currentPrimaryName = null;
+    let currentSecondaryId = null;
 
     return tasks.map(task => {
         const name = (task._originalName || '').trim();
-        const isPrimary = PRIMARY_TASK_NAMES.includes(name);
 
-        if (isPrimary) {
-            currentProjectId = task.id;
+        // Livello 1: Task primario
+        if (PRIMARY_TASK_NAMES.includes(name)) {
+            currentPrimaryId = task.id;
+            currentPrimaryName = name;
+            currentSecondaryId = null; // Reset secondario
             return { ...task, type: 'project', project: undefined };
         }
 
-        return {
-            ...task,
-            project: currentProjectId ?? undefined
-        };
+        // Livello 2: Task secondario
+        const isSecondary = Object.prototype.hasOwnProperty.call(SECONDARY_TASKS, name);
+        if (isSecondary) {
+            // Setup è speciale: appartiene a FrontEnd o BACKEND in base al contesto
+            let parentName = SECONDARY_TASKS[name];
+            if (name === 'Setup') {
+                parentName = currentPrimaryName; // Usa il primario corrente
+            }
+            const parentId = parentName ? primaryIdMap[parentName] : currentPrimaryId;
+            currentSecondaryId = task.id;
+            return { ...task, type: 'project', project: parentId ?? undefined };
+        }
+
+        // Livello 3: Task normale (figlio del secondario corrente, o del primario se non c'è secondario)
+        const parentId = currentSecondaryId ?? currentPrimaryId;
+        return { ...task, project: parentId ?? undefined };
     });
 };
