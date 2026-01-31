@@ -10,62 +10,83 @@ import {
 
 
 // Dati CSV importati direttamente
-const CSV_DATA = `Task Name,Start Date,Duration,Resources
-BACKEND,2025-11-28,2026-01-03,
+const CSV_DATA = `Task Name,Start Date,Duration,Resourcesç
+Project Management,2025-11-28,2026-01-30,
+Pianificazione requisiti 2025-11-28,2025-15-12,
 CALL Google Meet con il team (riunione),2025-11-28,2025-11-28,2.5h,Sandu/Mattia/Catalin/Andrea
+Ceazione schema analisi SWOT,2025-12-15,2025-12-15,4h,Sandu
+Creazione WBS,2025-12-15,2025-12-15,3h,Andrea
+Creazione Schema GANTT,2025-12-15,2025-12-15,8h,Andrea
+Coordinamento con il team,2025-11-28,2026-01-30
 CALL Google Meet con il team (riunione),2025-12-11,2025-12-11,2h,Sandu/Mattia/Catalin/Andrea
-CALL Google Meet con il team (riunione),2025-12-13,2025-12-13,2h,Sandu/Mattia/Catalin/Andrea
-creazione schema analisi SWOT,2025-12-15,2025-12-15,4h,Sandu
-creazione WBS,2025-12-15,2025-12-15,3h,Andrea
-creazione Mokup,2025-12-15,2025-12-15,8h,Catalin
-creazione Schema GANTT,2025-12-15,2025-12-15,8h,Andrea
-CALL Google Meet con il team (riunione),2025-12-15,2025-12-15,1.5h,Sandu/Mattia/Catalin/Andrea
-configurazione repository fronend in GitHub,2025-12-15,2025-12-15,3h,Sandu/Mattia/Catalin/Andrea
-installazione progetto React/Vite,2025-12-16,2025-12-16,1h,Sandu/Mattia/Catalin/Andrea
-configurazione cloud Vercel per deploy frontend con React/Vite,2025-12-17,2025-12-17,2h,Sandu/Mattia/Catalin/Andrea
-creazione EndScreen.jsx: schermata di fine partita.,2025-12-17,2025-12-17,2h,Catalin
-creazione VersusSetup.jsx: configurazione in modalità 1 VS 1,2025-12-18,2025-12-18,2h,Catalin
-creazione ColorPicker.jsx: selettore colori per sequenza segreta,2025-12-19,2025-12-19,0.5h,Catalin
-creazione GuessRow: riga di tentativo singolo,2025-12-20,2025-12-20,2h,Catalin
-creazione GameBoard.jsx: area di gioco principale,2025-12-21,2025-12-21,2h,Catalin
 CALL Google Meet con il team (riunione),2025-12-28,2025-12-28,1.5h,Sandu/Mattia/Catalin/Andrea
-creazione BombHeader.jsx: componente di intestazione del gioco,2025-12-28,2025-12-28,1h,Catalin
-implementazione dell'inglese come lingua base dell'app, 2025-12-28,2025-12-28,3h,Catalin
-creazione MainMenu.jsx: interfaccia per la scelta modalità di gioco,2025-12-29,2025-12-29,3h,Sandu
-creazione modale tuotorial del gioco,2025-12-29,2025-12-29,4h,Catalin
-creazione classifica, 2025-12-29,2025-12-29,5h,Andrea
-CALL Google Meet con il team (riunione),2025-12-30,2025-12-30,1.5h,Sandu/Mattia/Catalin/Andrea
-creazione schermata sfida giocatore,2025-12-30,2025-12-30,1.5h,Andrea
-CALL Google Meet con il team (riunione),2026-01-01,2026-01-01,1h,Sandu/Mattia/Catalin/Andrea
-creazione list utenti loggati (da sfidare online),2026-01-02,2026-01-02,3h,Andrea
-finestra di login,2026-01-02,2026-01-02,2h,Sandu
-finestra di registrazione,2026-01-02,2026-01-02,2h,Catalin
-implementazione responsive mobile,2026-01-05,2026-01-05,3h,Andrea
-inserimento pulsante Login/Logout,2026-01-08,2026-01-08,3h,Catalin
-Inserimento validazione username=email,2026-01-10,2026-01-10,2h,Andrea
-Gestione recupero password,2026-01-12,2026-01-12,2026-01-12,h4,Andrea
-FRONTEND,2025-12-16,2026-01-12
-configurazione repository backend in GitHub,2025-12-16,2025-12-16,3h,Sandu/Mattia/Catalin/Andrea
-configurazione cloud Neon per deploy  database PostgreSQL,2025-12-16,2025-12-16,1.5h,Catalin/Andrea
-configurazione cloud Render.com per deploy backend in Node.js/Express.js,2025-12-16,2025-12-16,2h,Sandu/Mattia/Catalin/Andrea
-installazione progetto Node.js/Express.js,2025-12-17,2025-12-17,1h,Catalin/Andrea/Sandu/Mattia
-creazione Token JWT con cookie HttpOnly e autorizzazione accesso a modalità 1 VS 1,2025-12-18,2025-12-18,6h,Andrea
-creazione controller Socket.io per lancio della sfida in modalità 1 VS 1,2025-12-19,2025-12-19,3h,Andrea
-creazione API elenco utenti loggati (online),2025-12-19,2025-12-19,3h,Andrea
-creazione API di registrazione,2025-12-20,2025-12-20,2h,Andrea
-creazione API di Login,2025-12-20,2025-12-20,2h,Andrea
-registrazione: controllo se l'utente è loggato,2025-12-20,2025-12-20,2h,Catalin
-registrazione: codificare utente password,2025-12-20,2025-12-20,1h,Andrea
-registrazione: implementazione del ruolo utente,2025-12-20,2025-12-20,1h,Catalin
-creazione connessione a database,2025-12-21,2025-12-21,1h,Andrea
-creazione server Express per sviluppo,2025-12-21,2025-12-21,1h,Andrea
-creazione tabella utenti in Neon,2025-12-21,2025-12-21,1h,Catalin/Andrea
+CALL Google Meet con il team (riunione),,2025-12-17,2025-12-17,2h,Sandu/Mattia/Catalin/Andrea
+CALL Google Meet con il team (riunione),2025-12-13,2025-12-13,2h,Sandu/Mattia/Catalin/Andrea
+CALL Google Meet con il team (riunione),2025-12-15,2025-12-15,1.5h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2025-12-22,2025-12-22,1.5h,Sandu/Mattia/Catalin/Andrea
-registrazione: username univoco,2025-12-22,2025-12-22,1h,Catalin
-creazione API classifica utenti,2025-12-22,2025-12-22,3h,Andrea
-creazione controller Socket.io con relativo modulo,2025-12-23,2025-12-23,5h,Sandu
+CALL Google Meet con il team (riunione),2025-12-30,2025-12-30,1.5h,Sandu/Mattia/Catalin/Andrea
+CALL Google Meet con il team (riunione),2026-01-01,2026-01-01,1h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2025-12-24,2025-12-24,1.5h,Sandu/Mattia/Catalin/Andrea
-CALL Google Meet con il team (riunione),2026-01-03,2026-01-03,1.5h,Sandu/Mattia/Catalin/Andrea`;
+CALL Google Meet con il team (riunione),2026-01-03,2026-01-03,1.5h,Sandu/Mattia/Catalin/Andrea
+Aggiornamenti Schema GANTT,2026-01-24,2026-01-30,6h,Andrea
+Design e UX/UT,2025-12-11,2026-01-05
+Ceazione Mokup,2025-12-15,2025-13-15,10h,Catalin
+Creazione modale tuotorial del gioco,2025-12-29,2025-12-29,4h,Catalin
+Implementazione responsive mobile,2026-01-05,2026-01-05,3h,Andrea
+FrontEnd,2025-12-15,2026-01-12
+Setup,2025-12-15,2025-12-17,1.5h,Sandu/Mattia/Catalin/Andrea
+configurazione repository fronend in GitHub,2025-12-15,2025-12-15,3h,Sandu/Mattia/Catalin/Andrea
+Installazione progetto React/Vite,2025-12-16,2025-12-16,1h,Sandu/Mattia/Catalin/Andrea
+Configurazione cloud Vercel per deploy frontend con React/Vite,2025-12-17,2025-12-17,2h,Sandu/Mattia/Catalin/Andrea
+Creazione MainMenu.jsx: interfaccia per la scelta modalità di gioco,2025-12-17,2025-12-18,3h,Sandu
+2025-12-18,2h,Catalin
+Creazione VersusSetup.jsx: configurazione in modalità 1 VS 1,2025-12-18,2025-12-18,2h,Catalin
+Creazione EndScreen.jsx: schermata di fine partita.,2025-12-19,2025-12-19,2h,Catalin
+Creazione ColorPicker.jsx: selettore colori per sequenza segreta,2025-12-19,2025-12-19,0.5h,Catalin
+Creazione GuessRow: riga di tentativo singolo,2025-12-20,2025-12-20,2h,Catalin
+Creazione GameBoard.jsx: area di gioco principale,2025-12-21,2025-12-21,2h,Catalin
+Creazione BombHeader.jsx: componente di intestazione del gioco,2025-12-28,2025-12-28,1h,Catalin
+Implementazione dell'inglese come lingua base dell'app, 2025-12-28,2025-12-28,3h,Catalin
+Creazione classifica, 2025-12-29,2025-12-29,5h,Andrea
+Creazione schermata sfida giocatore,2025-12-30,2025-12-30,1.5h,Andrea
+Implementazione funzionalità Utente,2025-12-19,2025-12-20,
+Finestra di login,2025-12-19,2025-12-19,2h,Sandu
+Finestra di registrazione,2025-12-20,2025-12-20,2h,Catalin
+Registrazione: implementazione del ruolo utente lato frontend,2025-12-20,2025-12-20,1h,Catalin
+Creazione list utenti loggati (da sfidare online),2026-01-02,2026-01-02,3h,Andrea
+Inserimento pulsante Login/Logout,2026-01-08,2026-01-08,3h,Catalin
+BACKEND,2025-11-28,2026-01-03,
+Setup,2025-12-16,2026-01-12 
+Configurazione repository backend in GitHub,2025-12-16,2025-12-16,3h,Sandu/Mattia/Catalin/Andrea
+Configurazione cloud Neon per deploy  database PostgreSQL,2025-12-16,2025-12-16,1.5h,Catalin/Andrea
+Configurazione cloud Render.com per deploy backend in Node.js/Express.js,2025-12-16,2025-12-16,2h,Sandu/Mattia/Catalin/Andrea
+Installazione progetto Node.js/Express.js,2025-12-17,2025-12-17,1h,Catalin/Andrea/Sandu/Mattia
+Database,2025-12-21,
+creazione tabella utenti in Neon,2025-12-21,2025-12-21,1h,Catalin/Andrea
+Creazione connessione a database,2025-12-21,2025-12-21,1h,Andrea
+API REST + Socket.io,2025-12-18,2025-12-22
+Creazione server Express per sviluppo,2025-12-18,2025-12-18,1h,Andrea
+Creazione controller Socket.io per lancio della sfida in modalità 1 VS 1,2025-12-19,2025-12-19,3h,Andrea
+Creazione API elenco utenti loggati (online),2025-12-19,2025-12-19,3h,Andrea
+Creazione API di registrazione,2025-12-20,2025-12-20,2h,Andrea
+Registrazione: controllo se l'utente è loggato,2025-12-20,2025-12-20,2h,Catalin
+Registrazione: codificare utente password,2025-12-20,2025-12-20,1h,Andrea
+Registrazione: username univoco,2025-12-22,2025-12-22,1h,Catalin
+Creazione API classifica utenti,2025-12-22,2025-12-22,3h,Andrea
+Sicurezza,2025-12-18,2026-12-23
+Creazione Token JWT con cookie HttpOnly e autorizzazione accesso a modalità 1 VS 1,2025-12-18,2025-12-18,6h,Andrea
+Gestione recupero password,2026-01-12,2026-01-12,2026-01-12,h4,Andrea
+Inserimento validazione username=email,2026-01-10,2026-01-10,2h,Andrea
+Registrazione: username univoco,2025-12-22,2025-12-22,1h,Catalin
+Creazione API classifica utenti,2025-12-22,2025-12-22,3h,Andrea
+Creazione controller Socket.io con relativo modulo,2025-12-23,2025-12-23,5h,Sandu
+Testing e Validazione,2026-01-20,2026-02-01
+Feedback dei nostri compagni di corso,2026-01-20,2026-01-25 Rumen/Andrea-Sabetta
+Correzione bug e migliorie software,2026-01-25,2026-02-01 Catalin/Andrea/Sandu
+Rilascio software,2026-25-01,2026-02-02
+Presentazione PowePoint,2026-25-01,2026-02-02 Andra/Catalin/Sandu
+Completamento e correzione documentazione,2026-25-01,2026-02-03 Catalin/Andrea/Sandu
+`;
 
 export const ProjectGanttTaskReact = () => {
   const [allTasks, setAllTasks] = useState([]);

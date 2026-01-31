@@ -13,6 +13,10 @@ dev-dist
 dist-ssr
 *.local
 
+# PWA icone generate (prebuild)
+public/icon-192.png
+public/icon-512.png
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
