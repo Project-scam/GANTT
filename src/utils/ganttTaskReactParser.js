@@ -319,3 +319,40 @@ export const filterTasksByResource = (tasks, resource) => {
         task._resources && task._resources.includes(resource)
     );
 };
+
+/**
+ * Nomi dei task primari (type: project, senza parent).
+ * I task con questi nomi diventano progetti; tutti gli altri hanno project = id del progetto corrente.
+ */
+const PRIMARY_TASK_NAMES = [
+    'Project Management',
+    'Design e UX/UI',
+    'FrontEnd',
+    'BACKEND',
+    'Testing e Validazione',
+    'Rilascio'
+];
+
+/**
+ * Applica la gerarchia ai task: task primari type='project', gli altri project=id del parent.
+ * @param {Array} tasks - Task restituiti da parseCSVToGanttTaskReact
+ * @returns {Array} - Stessi task con type e project impostati
+ */
+export const applyTaskHierarchy = (tasks) => {
+    let currentProjectId = null;
+
+    return tasks.map(task => {
+        const name = (task._originalName || '').trim();
+        const isPrimary = PRIMARY_TASK_NAMES.includes(name);
+
+        if (isPrimary) {
+            currentProjectId = task.id;
+            return { ...task, type: 'project', project: undefined };
+        }
+
+        return {
+            ...task,
+            project: currentProjectId ?? undefined
+        };
+    });
+};

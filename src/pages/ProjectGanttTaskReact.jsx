@@ -3,6 +3,7 @@ import { ViewMode } from "gantt-task-react";
 import { GanttTaskReact } from "../components/GanttTaskReact";
 import {
   parseCSVToGanttTaskReact,
+  applyTaskHierarchy,
   calculateTaskStats,
   filterTasksByResource,
   formatDateWithAbbreviatedMonth
@@ -29,7 +30,7 @@ CALL Google Meet con il team (riunione),2025-12-24,2025-12-24,1.5h,Sandu/Mattia/
 CALL Google Meet con il team (riunione),2026-01-01,2026-01-01,1h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2026-01-03,2026-01-03,1.5h,Sandu/Mattia/Catalin/Andrea
 Aggiornamenti Schema GANTT,2026-01-24,2026-01-30,6h,Andrea
-Design e UX/UT,2025-12-11,2026-01-05
+Design e UX/UI,2025-12-11,2026-01-05
 Creazione Mockup,2025-12-15,2026-01-15,10h,Catalin
 Creazione modale tutorial del gioco,2025-12-29,2025-12-29,4h,Catalin
 Implementazione responsive mobile,2026-01-05,2026-01-05,3h,Andrea
@@ -97,7 +98,8 @@ export const ProjectGanttTaskReact = () => {
   const [selectedTask, setSelectedTask] = useState(null);
 
   useEffect(() => {
-    const tasks = parseCSVToGanttTaskReact(CSV_DATA);
+    const parsed = parseCSVToGanttTaskReact(CSV_DATA);
+    const tasks = applyTaskHierarchy(parsed);
     setAllTasks(tasks);
     setFilteredTasks(tasks);
     setStats(calculateTaskStats(tasks));
