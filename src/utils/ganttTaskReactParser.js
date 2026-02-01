@@ -333,42 +333,56 @@ const PRIMARY_TASK_NAMES = [
 ];
 
 /**
- * Nomi dei task secondari (Livello 2) con il parent primario a cui appartengono.
- * Chiave: nome del task secondario, Valore: nome del task primario parent.
+ * Nomi dei task secondari (Livello 2).
+ * I secondari sotto FrontEnd e BACKEND con nome "Setup" sono gestiti in base al contesto.
  */
-const SECONDARY_TASKS = {
+const SECONDARY_TASK_NAMES = [
     // Figli di Project Management
-    'Pianificazione requisiti': 'Project Management',
-    'Coordinamento con il team': 'Project Management',
+    'Pianificazione requisiti',
+    'Coordinamento con il team',
     // Figli di FrontEnd
-    'Setup': null, // Gestito in base al contesto (FrontEnd o BACKEND)
-    'Implementazione funzionalità Utente': 'FrontEnd',
+    'Setup Componenti Principali',
+    'Implementazione Funzionalità Utente',
     // Figli di BACKEND
-    'Database': 'BACKEND',
-    'API REST + Socket.io': 'BACKEND',
-    'Sicurezza': 'BACKEND'
+    'Setup',  // Solo sotto BACKEND (FrontEnd usa "Setup Componenti Principali")
+    'Database',
+    'Sicurezza'
+];
+
+/**
+ * Colori per livello gerarchico
+ */
+const LEVEL_COLORS = {
+    // Livello 1 - Primari: Viola scuro
+    primary: {
+        backgroundColor: '#7c3aed',
+        progressColor: '#a78bfa',
+        selectedColor: '#5b21b6'
+    },
+    // Livello 2 - Secondari: Blu
+    secondary: {
+        backgroundColor: '#2563eb',
+        progressColor: '#60a5fa',
+        selectedColor: '#1d4ed8'
+    },
+    // Livello 3 - Task: Ciano/Teal
+    tertiary: {
+        backgroundColor: '#0891b2',
+        progressColor: '#22d3ee',
+        selectedColor: '#0e7490'
+    }
 };
 
 /**
- * Applica la gerarchia a 3 livelli ai task.
- * - Livello 1: Task primari (type: project)
- * - Livello 2: Task secondari (type: project, project: id del primario)
- * - Livello 3: Tutti gli altri (type: task, project: id del secondario corrente)
+ * Applica la gerarchia a 3 livelli ai task con colori distintivi.
+ * - Livello 1: Task primari (type: project, viola)
+ * - Livello 2: Task secondari (type: project, project: id del primario, blu)
+ * - Livello 3: Tutti gli altri (type: task, project: id del secondario, ciano)
  * @param {Array} tasks - Task restituiti da parseCSVToGanttTaskReact
- * @returns {Array} - Stessi task con type e project impostati
+ * @returns {Array} - Stessi task con type, project e colori impostati
  */
 export const applyTaskHierarchy = (tasks) => {
-    // Prima passata: costruiamo una mappa nome -> id per i primari
-    const primaryIdMap = {};
-    tasks.forEach(task => {
-        const name = (task._originalName || '').trim();
-        if (PRIMARY_TASK_NAMES.includes(name)) {
-            primaryIdMap[name] = task.id;
-        }
-    });
-
     let currentPrimaryId = null;
-    let currentPrimaryName = null;
     let currentSecondaryId = null;
 
     return tasks.map(task => {
@@ -377,26 +391,47 @@ export const applyTaskHierarchy = (tasks) => {
         // Livello 1: Task primario
         if (PRIMARY_TASK_NAMES.includes(name)) {
             currentPrimaryId = task.id;
-            currentPrimaryName = name;
             currentSecondaryId = null; // Reset secondario
-            return { ...task, type: 'project', project: undefined };
+            return {
+                ...task,
+                type: 'project',
+                project: undefined,
+                styles: {
+                    backgroundColor: LEVEL_COLORS.primary.backgroundColor,
+                    backgroundSelectedColor: LEVEL_COLORS.primary.selectedColor,
+                    progressColor: LEVEL_COLORS.primary.progressColor,
+                    progressSelectedColor: LEVEL_COLORS.primary.selectedColor
+                }
+            };
         }
 
         // Livello 2: Task secondario
-        const isSecondary = Object.prototype.hasOwnProperty.call(SECONDARY_TASKS, name);
-        if (isSecondary) {
-            // Setup è speciale: appartiene a FrontEnd o BACKEND in base al contesto
-            let parentName = SECONDARY_TASKS[name];
-            if (name === 'Setup') {
-                parentName = currentPrimaryName; // Usa il primario corrente
-            }
-            const parentId = parentName ? primaryIdMap[parentName] : currentPrimaryId;
+        if (SECONDARY_TASK_NAMES.includes(name)) {
             currentSecondaryId = task.id;
-            return { ...task, type: 'project', project: parentId ?? undefined };
+            return {
+                ...task,
+                type: 'project',
+                project: currentPrimaryId ?? undefined,
+                styles: {
+                    backgroundColor: LEVEL_COLORS.secondary.backgroundColor,
+                    backgroundSelectedColor: LEVEL_COLORS.secondary.selectedColor,
+                    progressColor: LEVEL_COLORS.secondary.progressColor,
+                    progressSelectedColor: LEVEL_COLORS.secondary.selectedColor
+                }
+            };
         }
 
         // Livello 3: Task normale (figlio del secondario corrente, o del primario se non c'è secondario)
         const parentId = currentSecondaryId ?? currentPrimaryId;
-        return { ...task, project: parentId ?? undefined };
+        return {
+            ...task,
+            project: parentId ?? undefined,
+            styles: {
+                backgroundColor: LEVEL_COLORS.tertiary.backgroundColor,
+                backgroundSelectedColor: LEVEL_COLORS.tertiary.selectedColor,
+                progressColor: LEVEL_COLORS.tertiary.progressColor,
+                progressSelectedColor: LEVEL_COLORS.tertiary.selectedColor
+            }
+        };
     });
 };

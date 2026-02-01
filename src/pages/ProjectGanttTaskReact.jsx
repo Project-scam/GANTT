@@ -19,7 +19,7 @@ Creazione schema analisi SWOT,2025-12-15,2025-12-15,4h,Sandu
 Creazione WBS,2025-12-15,2025-12-15,3h,Andrea
 Creazione Schema GANTT,2025-12-15,2025-12-15,8h,Andrea
 Coordinamento con il team,2025-11-28,2026-01-30
-CALL Google Meet con il team (riunione),2025-12-28,2025-12-28,1.5h,Sandu/Mattia/Catalin/Andrea
+CALL Google Meet con il team (riunione),2025-12-28,2025-11-28,1.5h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2025-12-11,2025-12-11,2h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2025-12-13,2025-12-13,2h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2025-12-15,2025-12-15,1.5h,Sandu/Mattia/Catalin/Andrea
@@ -37,7 +37,7 @@ Creazione Mockup,2025-12-15,2026-01-15,10h,Catalin
 Creazione modale tutorial del gioco,2025-12-29,2025-12-29,4h,Catalin
 Implementazione responsive mobile,2026-01-05,2026-01-05,3h,Andrea
 FrontEnd,2025-12-15,2026-01-12
-Setup,2025-12-15,2025-12-17,1.5h,Sandu/Mattia/Catalin/Andrea
+Setup Componenti Principali,2025-12-15,2025-12-28
 configurazione repository frontend in GitHub,2025-12-15,2025-12-15,3h,Sandu/Mattia/Catalin/Andrea
 Installazione progetto React/Vite,2025-12-16,2025-12-16,1h,Sandu/Mattia/Catalin/Andrea
 Configurazione cloud Vercel per deploy frontend con React/Vite,2025-12-17,2025-12-17,2h,Sandu/Mattia/Catalin/Andrea
@@ -52,7 +52,7 @@ Creazione BombHeader.jsx: componente di intestazione del gioco,2025-12-28,2025-1
 Implementazione dell'inglese come lingua base dell'app,2025-12-28,2025-12-28,3h,Catalin
 Creazione classifica,2025-12-29,2025-12-29,5h,Andrea
 Creazione schermata sfida giocatore,2025-12-30,2025-12-30,1.5h,Andrea
-Implementazione funzionalità Utente,2025-12-19,2025-12-20,
+Implementazione Funzionalità Utente,2025-12-19,2026-01-08,
 Finestra di login,2025-12-19,2025-12-19,2h,Sandu
 Finestra di registrazione,2025-12-20,2025-12-20,2h,Catalin
 Registrazione: implementazione del ruolo utente lato frontend,2025-12-20,2025-12-20,1h,Catalin
@@ -78,11 +78,9 @@ Registrazione: username univoco,2025-12-22,2025-12-22,1h,Catalin
 Creazione API classifica utenti,2025-12-22,2025-12-22,3h,Andrea
 Sicurezza,2025-12-18,2026-01-23
 Creazione Token JWT con cookie HttpOnly e autorizzazione accesso a modalità 1 VS 1,2025-12-18,2025-12-18,6h,Andrea
-Gestione recupero password,2026-01-12,2026-01-12,4h,Andrea
-Inserimento validazione username=email,2026-01-10,2026-01-10,2h,Andrea
 Registrazione: username univoco,2025-12-22,2025-12-22,1h,Catalin
-Creazione API classifica utenti,2025-12-22,2025-12-22,3h,Andrea
-Creazione controller Socket.io con relativo modulo,2025-12-23,2025-12-23,5h,Sandu
+Inserimento validazione username=email,2026-01-10,2026-01-10,2h,Andrea
+Gestione recupero password,2026-01-12,2026-01-12,4h,Andrea
 Testing e Validazione,2026-01-20,2026-02-01
 Feedback dei nostri compagni di corso,2026-01-20,2026-01-25,Ruben/Andrea-Sabetta
 Correzione bug e migliorie software,2026-01-25,2026-02-01,Catalin/Andrea/Sandu
