@@ -12,7 +12,7 @@ import {
 
 // Dati CSV importati direttamente
 const CSV_DATA = `Task Name,Start Date,End Date,Duration,Resources
-Project Management,2025-11-28,2026-01-30,
+Project Management,2025-11-28,2026-02-03,
 Pianificazione requisiti,2025-11-28,2025-12-15,
 CALL Google Meet con il team (riunione),2025-11-28,2025-11-28,2.5h,Sandu/Mattia/Catalin/Andrea
 Creazione schema analisi SWOT,2025-12-15,2025-12-15,4h,Sandu
