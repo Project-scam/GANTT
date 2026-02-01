@@ -25,8 +25,8 @@ CALL Google Meet con il team (riunione),2025-12-13,2025-12-13,2h,Sandu/Mattia/Ca
 CALL Google Meet con il team (riunione),2025-12-15,2025-12-15,1.5h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2025-12-17,2025-12-17,2h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2025-12-22,2025-12-22,1.5h,Sandu/Mattia/Catalin/Andrea
-CALL Google Meet con il team (riunione),2025-12-30,2025-12-30,1.5h,Sandu/Mattia/Catalin/Andrea
-CALL Google Meet con il team (riunione),2025-12-24,2025-12-24,1.5h,Sandu/Mattia/Catalin/Andrea
+CALL Google Meet con il team (riunione),2025-12-30,2025-12-24,1.5h,Sandu/Mattia/Catalin/Andrea
+CALL Google Meet con il team (riunione),2025-12-24,2025-12-30,1.5h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2026-01-01,2026-01-01,1h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2026-01-03,2026-01-03,1.5h,Sandu/Mattia/Catalin/Andrea
 Aggiornamenti Schema GANTT,2026-01-24,2026-01-30,6h,Andrea
