@@ -59,7 +59,7 @@ Registrazione: implementazione del ruolo utente lato frontend,2025-12-20,2025-12
 Creazione list utenti loggati (da sfidare online),2026-01-02,2026-01-02,3h,Andrea
 Inserimento pulsante Login/Logout,2026-01-08,2026-01-08,3h,Catalin
 BACKEND,2025-12-16,2026-01-12,
-Setup,2025-12-16,2026-12-17
+Setup,2025-12-16,2025-12-17
 Configurazione repository backend in GitHub,2025-12-16,2025-12-16,3h,Sandu/Mattia/Catalin/Andrea
 Configurazione cloud Neon per deploy database PostgreSQL,2025-12-16,2025-12-16,1.5h,Catalin/Andrea
 Configurazione cloud Render.com per deploy backend in Node.js/Express.js,2025-12-16,2025-12-16,2h,Sandu/Mattia/Catalin/Andrea
