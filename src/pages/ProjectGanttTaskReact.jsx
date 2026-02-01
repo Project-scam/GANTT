@@ -19,7 +19,7 @@ Creazione schema analisi SWOT,2025-12-15,2025-12-15,4h,Sandu
 Creazione WBS,2025-12-15,2025-12-15,3h,Andrea
 Creazione Schema GANTT,2025-12-15,2025-12-15,8h,Andrea
 Coordinamento con il team,2025-11-28,2026-01-30
-CALL Google Meet con il team (riunione),2025-12-28,2025-11-28,1.5h,Sandu/Mattia/Catalin/Andrea
+CALL Google Meet con il team (riunione),2025-11-28,2025-11-28,1.5h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2025-12-11,2025-12-11,2h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2025-12-13,2025-12-13,2h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2025-12-15,2025-12-15,1.5h,Sandu/Mattia/Catalin/Andrea
@@ -32,7 +32,7 @@ CALL Google Meet con il team (riunione),2026-01-03,2026-01-03,1.5h,Sandu/Mattia/
 CAll Google Meet con il team (riunione),2026-02-01,2026-02-01,1.5h,Sandu/Mattia/Catalin/Andrea
 CAll Google Meet con il team (riunione),2026-02-03,2026-02-03,1.5h,Sandu/Mattia/Catalin/Andrea
 Aggiornamenti Schema GANTT,2026-01-24,2026-01-30,6h,Andrea
-Design e UX/UI,2025-12-11,2026-01-05
+Design e UX/UI,2025-12-15,2026-01-05
 Creazione Mockup,2025-12-15,2026-01-15,10h,Catalin
 Creazione modale tutorial del gioco,2025-12-29,2025-12-29,4h,Catalin
 Implementazione responsive mobile,2026-01-05,2026-01-05,3h,Andrea
@@ -58,14 +58,14 @@ Finestra di registrazione,2025-12-20,2025-12-20,2h,Catalin
 Registrazione: implementazione del ruolo utente lato frontend,2025-12-20,2025-12-20,1h,Catalin
 Creazione list utenti loggati (da sfidare online),2026-01-02,2026-01-02,3h,Andrea
 Inserimento pulsante Login/Logout,2026-01-08,2026-01-08,3h,Catalin
-BACKEND,2025-11-28,2026-01-03,
-Setup,2025-12-16,2026-01-12
+BACKEND,2025-12-16,2026-01-03,
+Setup,2025-12-16,2026-12-17
 Configurazione repository backend in GitHub,2025-12-16,2025-12-16,3h,Sandu/Mattia/Catalin/Andrea
 Configurazione cloud Neon per deploy database PostgreSQL,2025-12-16,2025-12-16,1.5h,Catalin/Andrea
 Configurazione cloud Render.com per deploy backend in Node.js/Express.js,2025-12-16,2025-12-16,2h,Sandu/Mattia/Catalin/Andrea
 Installazione progetto Node.js/Express.js,2025-12-17,2025-12-17,1h,Catalin/Andrea/Sandu/Mattia
-Database,2025-12-21,2025-12-23
-creazione tabella utenti in Neon,2025-12-21,2025-12-21,1h,Catalin/Andrea
+Database,2025-12-21,2025-12-21
+Creazione tabella utenti in Neon,2025-12-21,2025-12-21,1h,Catalin/Andrea
 Creazione connessione a database,2025-12-21,2025-12-21,1h,Andrea
 API REST + Socket.io,2025-12-18,2025-12-22
 Creazione server Express per sviluppo,2025-12-18,2025-12-18,1h,Andrea
@@ -76,7 +76,7 @@ Registrazione: controllo se l'utente è loggato,2025-12-20,2025-12-20,2h,Catalin
 Registrazione: codificare utente password,2025-12-20,2025-12-20,1h,Andrea
 Registrazione: username univoco,2025-12-22,2025-12-22,1h,Catalin
 Creazione API classifica utenti,2025-12-22,2025-12-22,3h,Andrea
-Sicurezza,2025-12-18,2026-01-23
+Sicurezza,2025-12-18,2026-01-12
 Creazione Token JWT con cookie HttpOnly e autorizzazione accesso a modalità 1 VS 1,2025-12-18,2025-12-18,6h,Andrea
 Registrazione: username univoco,2025-12-22,2025-12-22,1h,Catalin
 Inserimento validazione username=email,2026-01-10,2026-01-10,2h,Andrea
