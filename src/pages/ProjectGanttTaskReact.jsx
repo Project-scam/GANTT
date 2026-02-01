@@ -29,9 +29,9 @@ CALL Google Meet con il team (riunione),2025-12-30,2025-12-30,1.5h,Sandu/Mattia/
 CALL Google Meet con il team (riunione),2025-12-24,2025-12-24,1.5h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2026-01-01,2026-01-01,1h,Sandu/Mattia/Catalin/Andrea
 CALL Google Meet con il team (riunione),2026-01-03,2026-01-03,1.5h,Sandu/Mattia/Catalin/Andrea
+Aggiornamenti Schema GANTT,2026-01-24,2026-01-30,6h,Andrea
 CAll Google Meet con il team (riunione),2026-02-01,2026-02-01,1.5h,Sandu/Mattia/Catalin/Andrea
 CAll Google Meet con il team (riunione),2026-02-03,2026-02-03,1.5h,Sandu/Mattia/Catalin/Andrea
-Aggiornamenti Schema GANTT,2026-01-24,2026-01-30,6h,Andrea
 Design e UX/UI,2025-12-15,2026-01-05
 Creazione Mockup,2025-12-15,2025-12-15,10h,Catalin
 Creazione modale tutorial del gioco,2025-12-29,2025-12-29,4h,Catalin
@@ -58,7 +58,7 @@ Finestra di registrazione,2025-12-20,2025-12-20,2h,Catalin
 Registrazione: implementazione del ruolo utente lato frontend,2025-12-20,2025-12-20,1h,Catalin
 Creazione list utenti loggati (da sfidare online),2026-01-02,2026-01-02,3h,Andrea
 Inserimento pulsante Login/Logout,2026-01-08,2026-01-08,3h,Catalin
-BACKEND,2025-12-16,2026-01-03,
+BACKEND,2025-12-16,2026-01-12,
 Setup,2025-12-16,2026-12-17
 Configurazione repository backend in GitHub,2025-12-16,2025-12-16,3h,Sandu/Mattia/Catalin/Andrea
 Configurazione cloud Neon per deploy database PostgreSQL,2025-12-16,2025-12-16,1.5h,Catalin/Andrea
