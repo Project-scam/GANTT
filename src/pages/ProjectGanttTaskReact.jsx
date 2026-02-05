@@ -82,7 +82,7 @@ Registrazione: username univoco,2025-12-22,2025-12-22,1h,Catalin
 Inserimento validazione username=email,2026-01-10,2026-01-10,2h,Andrea
 Gestione recupero password,2026-01-12,2026-01-12,4h,Andrea
 Testing e Validazione,2026-01-20,2026-02-01
-Feedback dei nostri compagni di corso,2026-01-20,2026-01-25,Ruben/Andrea-Sabetta
+Feedback dei nostri compagni di corso,2026-01-20,2026-01-25,Rumen/Andrea-Sabetta
 Correzione bug e migliorie software,2026-01-25,2026-02-01,Catalin/Andrea/Sandu
 Rilascio software,2026-01-25,2026-02-02
 Presentazione PowerPoint,2026-01-25,2026-02-02,Andrea/Catalin/Sandu
